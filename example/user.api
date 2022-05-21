@@ -1,0 +1,77 @@
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+
+type (
+
+    // User
+    Test struct {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+        Age int `json:"age"`
+    }
+    
+    //注册请求结构
+    RegisterReq {
+        Username string `json:"username"`
+        Password string `json:"password"`
+        Mobile string `json:"mobile"`
+    }
+
+    LoginReq {
+        Username string `json:"username"` //测试
+        Password string `json:"password"`//测试2
+    }
+    UserInfoReq {
+        Id string `path:"id"`
+    }
+
+    UserInfoReply {
+        Name string `json:"name"`
+        Age int `json:"age"`
+        Birthday string `json:"birthday"`
+        Description string `json:"description"`
+        Tag []string `json:"tag"`
+        Users []Test `json:"users"`
+        User Test `json:"user"`
+    }
+
+    UserSearchReq {
+        KeyWord string `form:"keyWord"` // 关键词
+    }
+)
+
+@server(
+  prefix: /api
+)
+
+service userApi {
+    @doc(
+        summary: 注册
+    )
+    @handler register
+    post /user/register (RegisterReq)
+
+    @doc(
+        summary: 登录
+    )
+    @handler login
+    post /user/login (LoginReq)
+
+    @doc(
+        summary: 获取用户信息
+    )
+    @handler getUserInfo
+    get /user/:id (UserInfoReq) returns (UserInfoReply)
+
+    @doc(
+        summary: 用户搜索
+    )
+    @handler searchUser
+    get /user/search (UserSearchReq) returns (UserInfoReply)
+}

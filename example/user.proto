@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+message Empty {}
+
+
+// User
+message Test { 
+    int64 id = 1;
+    repeated int64 ids = 2;
+    string name = 3;
+    int32 age = 4;
+}
+
+message UserInfoReq { 
+}
+
+message UserInfoReply { 
+    repeated Test users = 1;
+    Test user = 2;
+}
+
+
+
+service userApi {
+
+    //获取用户信息
+     rpc hghhhhhhhhhhhhgetUserInfo(UserInfoReq) returns (UserInfoReply);
+
+}

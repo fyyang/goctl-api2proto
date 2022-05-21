@@ -1,0 +1,41 @@
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+
+type (
+
+    // User
+    Test struct {
+        Id int64 `json:"id"`
+        Ids []int64 `json:"ids"`
+        Name string `json:"name"`
+        Age int `json:"age"`
+    }
+
+    UserInfoReq {
+        Id string `path:"id"`
+    }
+
+    UserInfoReply {
+        Users []Test `json:"users"`
+        User Test `json:"user"`
+    }
+)
+
+@server(
+    prefix: /api
+    group : hghhhhhhhhhhhh
+)
+
+service userApi {
+@doc(
+    summary: 获取用户信息
+)
+    @handler getUserInfo
+    get /user/:id (UserInfoReq) returns (UserInfoReply)
+}
