@@ -51,14 +51,13 @@ func renderReplyAsService(p spec.Service) protoService {
 		Comment: "",
 		Item:    make([]serviceMember, 0),
 	}
-
 	for _, group := range p.Groups {
 
 		for _, route := range group.Routes {
-			if len(route.Handler) > 0 {
-				route.Handler = strings.ToLower(string(route.Handler[0])) + route.Handler[1:]
-			}
 
+			if len(route.Handler) > 0 {
+				route.Handler = strings.ToUpper(string(route.Handler[0])) + route.Handler[1:]
+			}
 			schema := serviceMember{
 				FuncName:     group.GetAnnotation("group") + route.Handler,
 				RequestName:  route.RequestTypeName(),

@@ -26,6 +26,6 @@ message UserInfoReply {
 service userApi {
 
     //获取用户信息
-     rpc hghhhhhhhhhhhhgetUserInfo(UserInfoReq) returns (UserInfoReply);
+     rpc hghhhhhhhhhhhhGetUserInfo(UserInfoReq) returns (UserInfoReply);
 
 }
