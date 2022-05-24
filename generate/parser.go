@@ -13,12 +13,12 @@ func applyGenerate(p *plugin.Plugin) ([]protoMessage, protoService, error) {
 	return message, service, nil
 }
 
-func renderReplyAsDefinition(p []spec.Type) []protoMessage {
+func renderReplyAsDefinition(types []spec.Type) []protoMessage {
 	protoMessages := make([]protoMessage, 0)
 
-	for _, i2 := range p {
+	for _, tp := range types {
 		schema := protoMessage{}
-		defineStruct, _ := i2.(spec.DefineStruct)
+		defineStruct, _ := tp.(spec.DefineStruct)
 
 		schema.Name = defineStruct.Name()
 		schema.Comment = strings.Join(defineStruct.Documents(), " ")
@@ -54,12 +54,16 @@ func renderReplyAsService(p spec.Service) protoService {
 
 	for _, group := range p.Groups {
 
-		for _, i2 := range group.Routes {
+		for _, route := range group.Routes {
+			if len(route.Handler) > 0 {
+				route.Handler = strings.ToLower(string(route.Handler[0])) + route.Handler[1:]
+			}
+
 			schema := serviceMember{
-				FuncName:     group.GetAnnotation("group") + i2.Handler,
-				RequestName:  i2.RequestTypeName(),
-				ResponseName: i2.ResponseTypeName(),
-				Comment:      i2.JoinedDoc(),
+				FuncName:     group.GetAnnotation("group") + route.Handler,
+				RequestName:  route.RequestTypeName(),
+				ResponseName: route.ResponseTypeName(),
+				Comment:      route.JoinedDoc(),
 			}
 
 			protoS.Item = append(protoS.Item, schema)
