@@ -35,7 +35,6 @@ func renderReplyAsDefinition(types []spec.Type) []protoMessage {
 
 			//首字母小写
 			if len(messageM.Name) > 0 {
-				messageM.Name = strings.TrimLeft(messageM.Name, "*")
 				messageM.Name = strings.ToLower(string(messageM.Name[0])) + messageM.Name[1:]
 			}
 
@@ -132,6 +131,8 @@ func schemaOfField(member spec.Member) messageMember {
 		}
 		item.Name = tag.Name
 	}
+
+	item.Type = strings.TrimLeft(item.Type, "*")
 
 	return item
 }
