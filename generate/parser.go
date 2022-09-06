@@ -35,6 +35,7 @@ func renderReplyAsDefinition(types []spec.Type) []protoMessage {
 
 			//首字母小写
 			if len(messageM.Name) > 0 {
+				messageM.Name = strings.TrimLeft(messageM.Name, "*")
 				messageM.Name = strings.ToLower(string(messageM.Name[0])) + messageM.Name[1:]
 			}
 
@@ -138,6 +139,14 @@ func schemaOfField(member spec.Member) messageMember {
 // https://swagger.io/specification/ Data Types
 func primitiveSchema(kind reflect.Kind, t string) (ftype string, ok bool) {
 	switch kind {
+	case reflect.Int8:
+		return "int32", true
+	case reflect.Uint8:
+		return "int32", true
+	case reflect.Int16:
+		return "int32", true
+	case reflect.Uint16:
+		return "int32", true
 	case reflect.Int32:
 		return "int32", true
 	case reflect.Int64:
