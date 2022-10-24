@@ -37,7 +37,7 @@ type (
         Birthday string `json:"birthday"`
         Description string `json:"description"`
         Tag []string `json:"tag"`
-        Users []Test `json:"users"`
+        Users []*Test `json:"users"`
         User Test `json:"user"`
     }
 

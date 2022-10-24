@@ -8,24 +8,53 @@ message Empty {}
 // User
 message Test { 
     int64 id = 1;
-    repeated int64 ids = 2;
-    string name = 3;
-    int32 age = 4;
+    string name = 2;
+    int32 age = 3;
+}
+
+//注册请求结构
+message RegisterReq { 
+    string username = 1;
+    string password = 2;
+    string mobile = 3;
+}
+
+message LoginReq { 
+    string username = 1;  //测试
+    string password = 2;  //测试2
 }
 
 message UserInfoReq { 
 }
 
 message UserInfoReply { 
-    repeated Test users = 1;
-    Test user = 2;
+    string name = 1;
+    int32 age = 2;
+    string birthday = 3;
+    string description = 4;
+    repeated string tag = 5;
+    repeated Test users = 6;
+    Test user = 7;
+}
+
+message UserSearchReq { 
+    string keyWord = 1;  // 关键词
 }
 
 
 
 service userApi {
 
+    //注册
+     rpc Register(RegisterReq) returns (Empty);
+
+    //登录
+     rpc Login(LoginReq) returns (Empty);
+
     //获取用户信息
-     rpc hghhhhhhhhhhhhGetUserInfo(UserInfoReq) returns (UserInfoReply);
+     rpc GetUserInfo(UserInfoReq) returns (UserInfoReply);
+
+    //用户搜索
+     rpc SearchUser(UserSearchReq) returns (UserInfoReply);
 
 }

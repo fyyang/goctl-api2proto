@@ -139,6 +139,7 @@ func schemaOfField(member spec.Member) messageMember {
 
 // https://swagger.io/specification/ Data Types
 func primitiveSchema(kind reflect.Kind, t string) (ftype string, ok bool) {
+	t = strings.TrimLeft(t, "*")
 	switch kind {
 	case reflect.Int8:
 		return "int32", true
@@ -176,6 +177,7 @@ func primitiveSchema(kind reflect.Kind, t string) (ftype string, ok bool) {
 	case reflect.Invalid:
 		replace := strings.Replace(t, "[]", "", -1)
 		if strings.HasPrefix(t, "[]") {
+			replace = strings.TrimLeft(replace, "*")
 			return "repeated " + replace, true
 		}
 		return t, true
