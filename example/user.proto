@@ -35,6 +35,7 @@ message UserInfoReply {
     repeated string tag = 5;
     repeated Test users = 6;
     Test user = 7;
+    repeated int32 scene = 8;
 }
 
 message UserSearchReq { 
@@ -46,15 +47,15 @@ message UserSearchReq {
 service userApi {
 
     //注册
-     rpc Register(RegisterReq) returns (Empty);
+     rpc register(RegisterReq) returns (Empty);
 
     //登录
-     rpc Login(LoginReq) returns (Empty);
+     rpc login(LoginReq) returns (Empty);
 
     //获取用户信息
-     rpc GetUserInfo(UserInfoReq) returns (UserInfoReply);
+     rpc getUserInfo(UserInfoReq) returns (UserInfoReply);
 
     //用户搜索
-     rpc SearchUser(UserSearchReq) returns (UserInfoReply);
+     rpc searchUser(UserSearchReq) returns (UserInfoReply);
 
 }

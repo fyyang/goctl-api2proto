@@ -39,6 +39,7 @@ type (
         Tag []string `json:"tag"`
         Users []*Test `json:"users"`
         User Test `json:"user"`
+        scene []int8 `json:"scene"`
     }
 
     UserSearchReq {

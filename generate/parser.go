@@ -179,6 +179,14 @@ func primitiveSchema(kind reflect.Kind, t string) (ftype string, ok bool) {
 		replace := strings.Replace(t, "[]", "", -1)
 		if strings.HasPrefix(t, "[]") {
 			replace = strings.TrimLeft(replace, "*")
+
+			if _, ok := protoMapTypes[replace]; ok {
+				ftype, ok = primitiveSchema(protoMapTypes[replace], replace)
+				if ok {
+					return "repeated " + ftype, true
+				}
+			}
+
 			return "repeated " + replace, true
 		}
 		return t, true
